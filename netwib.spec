@@ -1,9 +1,10 @@
 %define name	netwib
 %define version	5.30.0
-%define release	1mdk
+%define release	%mkrel 2
 
 %define major	5
 %define libname %mklibname %{name} %major
+%define libname %mklibname -d %{name}
 
 Summary:	A network library
 Name:		%{name}
@@ -14,9 +15,9 @@ Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
 Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tar.bz2
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tar.bz2
-Patch0:		%{name}-5.15.0-genemake.diff.bz2
+Patch0:		%{name}-5.15.0-genemake.diff
 BuildRequires:	libpcap-devel >= 0.7.2
-BuildRequires:	net-devel => 1.1.2.1
+BuildRequires:	net2-devel => 1.1.2.1
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 %description
@@ -45,15 +46,16 @@ She provides:
 
 With Netwib, you can easily create a network application.
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	A network library
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
 Provides:	lib%{name}-devel = %{version}-%{release}
 Provides:	%{name}-devel
 Obsoletes:	%{name}-devel
+Obsoletes:	%{libname}-devel
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 Netwib is a network library for network administrator and hackers.
 She provides:
   + address translation
@@ -111,9 +113,9 @@ cd src
 
 %postun -n %{libname} -p /sbin/ldconfig
 
-%post -n %{libname}-devel -p /sbin/ldconfig
+%post -n %{develname} -p /sbin/ldconfig
 
-%postun -n %{libname}-devel -p /sbin/ldconfig
+%postun -n %{develname} -p /sbin/ldconfig
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -123,7 +125,7 @@ cd src
 %doc INSTALLUNIX.TXT INSTALLWINDOWS.TXT README.TXT
 %{_libdir}/libnetwib.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc INSTALLUNIX.TXT INSTALLWINDOWS.TXT README.TXT
 %{_bindir}/netwib*-config
