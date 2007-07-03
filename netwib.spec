@@ -1,10 +1,10 @@
 %define name	netwib
-%define version	5.30.0
-%define release	%mkrel 2
+%define version	5.35.0
+%define release	%mkrel 1
 
 %define major	5
 %define libname %mklibname %{name} %major
-%define libname %mklibname -d %{name}
+%define develname %mklibname -d %{name}
 
 Summary:	A network library
 Name:		%{name}
@@ -13,9 +13,9 @@ Release:	%{release}
 License:	LGPL
 Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
-Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tar.bz2
-Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tar.bz2
-Patch0:		%{name}-5.15.0-genemake.diff
+Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tgz
+Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
+Patch0:		netwib-5.35.0-genemake.patch
 BuildRequires:	libpcap-devel >= 0.7.2
 BuildRequires:	net2-devel => 1.1.2.1
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -124,6 +124,7 @@ cd src
 %defattr(-,root,root)
 %doc INSTALLUNIX.TXT INSTALLWINDOWS.TXT README.TXT
 %{_libdir}/libnetwib.so.*
+%{_libdir}/libnetwib*.so.*
 
 %files -n %{develname}
 %defattr(-,root,root)
@@ -131,7 +132,7 @@ cd src
 %{_bindir}/netwib*-config
 %{_includedir}/netwib*
 %{_libdir}/libnetwib*.a
-%{_libdir}/libnetwib.so
+%{_libdir}/libnetwib*.so
 %{_mandir}/man3/netwib*
 
 %files -n %{name}-doc
