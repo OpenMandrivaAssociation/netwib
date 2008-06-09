@@ -109,13 +109,21 @@ cd src
 %makeinstall_std
 %make installso DESTDIR=%{buildroot}
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %post -n %{develname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{develname} -p /sbin/ldconfig
+%endif
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
