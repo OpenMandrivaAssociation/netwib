@@ -1,6 +1,6 @@
 %define name	netwib
 %define version	5.35.0
-%define release	%mkrel 1
+%define release	%mkrel 3
 
 %define major	5
 %define libname %mklibname %{name} %major
