@@ -1,6 +1,6 @@
 %define name	netwib
 %define version	5.35.0
-%define release	%mkrel 4
+%define release	%mkrel 5
 
 %define major	5
 %define libname %mklibname %{name} %major
@@ -17,7 +17,7 @@ Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
 Patch0:		netwib-5.35.0-genemake.patch
 BuildRequires:	libpcap-devel >= 0.7.2
-BuildRequires:	net2-devel => 1.1.2.1
+BuildRequires:	net-devel >= 1.1.3
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
