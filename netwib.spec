@@ -1,10 +1,11 @@
 %define name	netwib
-%define version	5.35.0
-%define release	%mkrel 6
+%define version	5.39.0
+%define release	1
 
 %define major	5
 %define libname %mklibname %{name} %major
 %define develname %mklibname -d %{name}
+%define develnamest %mklibname -d -s %{name}
 
 Summary:	A network library
 Name:		%{name}
@@ -15,10 +16,9 @@ Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
 Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tgz
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
-Patch0:		netwib-5.35.0-genemake.patch
+Patch0:		netwib-5.39.0-genemake.patch
 BuildRequires:	libpcap-devel >= 0.7.2
 BuildRequires:	net-devel >= 1.1.3
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Netwib is a network library for network administrator and hackers.
@@ -65,6 +65,28 @@ She provides:
 
 With Netwib, you can easily create a network application.
 
+
+
+%package -n	%{develnamest}
+Summary:	A network library
+Group:		Development/Other
+Requires:	%{libname} = %{version}-%{release}
+Requires:	%{develname} = %{version}-%{release}
+Provides:	lib%{name}-devel-static = %{version}-%{release}
+Provides:	%{name}-devel-static
+
+%description -n	%{develnamest}
+Netwib is a network library for network administrator and hackers.
+She provides:
+  + address translation
+  + client/server udp/tcp
+  + paquets creation and annalyze
+  + etc.
+
+With Netwib, you can easily create a network application.
+
+
+
 %package -n	%{name}-doc
 Summary:	Netwib html documentation
 Group:		Networking/Other
@@ -85,7 +107,7 @@ With Netwib, you can easily create a network application.
 
 %setup -q -n %{name}-%{version}-src
 %setup -q -D -T -a1 -n %{name}-%{version}-src
-%patch0 -p0
+%patch0 -p1
 
 perl -pi -e 's!^NETWIBDEF_INSTPREFIX=.*!NETWIBDEF_INSTPREFIX=%{_prefix}!' src/config.dat
 # Hacking for lib64
@@ -103,46 +125,25 @@ cd src
     GCCOPTL="$GCCOPT" GCCOPTP="$GCCOPT" libnetwib.so libnetwib.a
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 cd src
 %makeinstall_std
 %make installso DESTDIR=%{buildroot}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%post -n %{develname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{develname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %doc INSTALLUNIX.TXT INSTALLWINDOWS.TXT README.TXT
 %{_libdir}/libnetwib.so.*
-%{_libdir}/libnetwib*.so.*
+%{_libdir}/libnetwib539.so.5.39.0
+#% {_libdir}/libnetwib*.so.*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc INSTALLUNIX.TXT INSTALLWINDOWS.TXT README.TXT
 %{_bindir}/netwib*-config
 %{_includedir}/netwib*
-%{_libdir}/libnetwib*.a
 %{_libdir}/libnetwib*.so
 %{_mandir}/man3/netwib*
 
+%files -n %{develnamest}
+%{_libdir}/libnetwib*.a
+
 %files -n %{name}-doc
-%defattr(-,root,root)
 %doc doc/*.txt %{name}-%{version}-doc_html/* 
