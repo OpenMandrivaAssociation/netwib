@@ -1,0 +1,28 @@
+diff --git a/src/genemake b/src/genemake
+index 1b1292d..52a1451 100755
+--- a/src/genemake
++++ b/src/genemake
+@@ -2475,7 +2475,7 @@ fi
+ cat >> Makefile <<EOF
+ 
+ libnetwib.so: \$(INCMAKELOBJ)
+-	\$(CC) -o libnetwib.so \$(GCCOPTSO) \$(INCMAKELOBJ) \$(GCCLIB)
++	\$(CC) -o libnetwib.so.${NETWIBDEF_VERSION} \$(GCCOPTSO) \$(INCMAKELOBJ) \$(GCCLIB)
+ 	@echo ""
+ 	@echo "$txtinstso"
+ 
+@@ -2490,10 +2490,10 @@ install.a: libnetwib.a
+ 
+ install.so: libnetwib.so
+ 	[ -d \$(INSTLIB) ] || mkdir -m 0755 -p \$(INSTLIB)
+-	cp libnetwib.so \$(INSTLIB)/libnetwib$netwv.so
+-	chmod 644 \$(INSTLIB)/libnetwib$netwv.so
+-	rm -f \$(INSTLIB)/libnetwib.so
+-	ln -s libnetwib$netwv.so \$(INSTLIB)/libnetwib.so
++	cp libnetwib.so.${NETWIBDEF_VERSION} \$(INSTLIB)/libnetwib$netwv.so.${NETWIBDEF_VERSION}
++	chmod 755 \$(INSTLIB)/libnetwib$netwv.so.${NETWIBDEF_VERSION}
++	ln -snf libnetwib$netwv.so.${NETWIBDEF_VERSION} \$(INSTLIB)/libnetwib.so.${NETWIBDEF_VERSIONMAJOR}
++	ln -snf libnetwib$netwv.so.${NETWIBDEF_VERSION} \$(INSTLIB)/libnetwib.so
+ 	@echo ""
+ 	@echo "$txtldconf"
+ 
