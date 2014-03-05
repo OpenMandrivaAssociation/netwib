@@ -12,6 +12,7 @@ Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
 Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tgz
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
+Source100:	%{name}.rpmlintrc
 Patch0:		netwib-5.39.0-genemake.patch
 BuildRequires:	libpcap-devel >= 0.7.2
 BuildRequires:	libnet-devel >= 1.1.3
