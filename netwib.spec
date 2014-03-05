@@ -1,16 +1,12 @@
-%define name	netwib
-%define version	5.39.0
-%define release	1
-
 %define major	5
 %define libname %mklibname %{name} %major
 %define develname %mklibname -d %{name}
 %define develnamest %mklibname -d -s %{name}
 
 Summary:	A network library
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		netwib
+Version:	5.39.0
+Release:	2
 License:	LGPL
 Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
@@ -18,7 +14,7 @@ Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
 Patch0:		netwib-5.39.0-genemake.patch
 BuildRequires:	libpcap-devel >= 0.7.2
-BuildRequires:	net-devel >= 1.1.3
+BuildRequires:	libnet-devel >= 1.1.3
 
 %description
 Netwib is a network library for network administrator and hackers.
@@ -66,7 +62,6 @@ She provides:
 With Netwib, you can easily create a network application.
 
 
-
 %package -n	%{develnamest}
 Summary:	A network library
 Group:		Development/Other
@@ -107,6 +102,9 @@ With Netwib, you can easily create a network application.
 
 %setup -q -n %{name}-%{version}-src
 %setup -q -D -T -a1 -n %{name}-%{version}-src
+
+find . -type f -exec chmod a+r {} \;
+
 %patch0 -p1
 
 perl -pi -e 's!^NETWIBDEF_INSTPREFIX=.*!NETWIBDEF_INSTPREFIX=%{_prefix}!' src/config.dat
@@ -147,40 +145,3 @@ cd src
 
 %files -n %{name}-doc
 %doc doc/*.txt %{name}-%{version}-doc_html/* 
-
-
-%changelog
-* Mon Jul 09 2012 Alexander Khrukin <akhrukin@mandriva.org> 5.39.0-1
-+ Revision: 808565
-- version update 5.39
-
-  + Oden Eriksson <oeriksson@mandriva.com>
-    - the mass rebuild of 2010.0 packages
-
-* Thu Jun 04 2009 Oden Eriksson <oeriksson@mandriva.com> 5.35.0-5mdv2010.0
-+ Revision: 382729
-- rebuilt against libnet 1.1.3
-
-* Wed Oct 29 2008 Oden Eriksson <oeriksson@mandriva.com> 5.35.0-4mdv2009.1
-+ Revision: 298321
-- rebuilt against libpcap-1.0.0
-
-* Wed Jul 23 2008 Thierry Vignaud <tv@mandriva.org> 5.35.0-3mdv2009.0
-+ Revision: 241094
-- rebuild
-- kill re-definition of %%buildroot on Pixel's request
-
-  + Pixel <pixel@mandriva.com>
-    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
-
-  + Olivier Blin <blino@mandriva.org>
-    - restore BuildRoot
-
-* Tue Jul 03 2007 Funda Wang <fwang@mandriva.org> 5.35.0-1mdv2008.0
-+ Revision: 47385
-- New version
-  Rediff patch0
-- bunzip2 the patch
-- new devel package policy
-- Import netwib
-
