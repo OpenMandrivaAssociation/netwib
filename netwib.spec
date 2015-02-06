@@ -6,7 +6,7 @@
 Summary:	A network library
 Name:		netwib
 Version:	5.39.0
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Networking/Other
 URL:		http://www.laurentconstantin.com/fr/netw/netwib/
