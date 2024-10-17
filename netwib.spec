@@ -9,7 +9,7 @@ Version:	5.39.0
 Release:	3
 License:	LGPL
 Group:		Networking/Other
-URL:		http://www.laurentconstantin.com/fr/netw/netwib/
+URL:		https://www.laurentconstantin.com/fr/netw/netwib/
 Source0:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-src.tgz
 Source1:	http://www.laurentconstantin.com/common/netw/netwib/download/v5/%{name}-%{version}-doc_html.tgz
 Source100:	%{name}.rpmlintrc
